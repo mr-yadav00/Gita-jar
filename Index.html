@@ -1,0 +1,966 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Vani – The Digital Gita Jar</title>
+    <!-- Premium Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- GLOBAL DESIGN SYSTEM & VARIABLES --- */
+        :root {
+            --bg-dark: #080C14;
+            --bg-temple: #111827;
+            --parchment: #F8F1DC;
+            --gold: #D4AF37;
+            --gold-glow: rgba(212, 175, 55, 0.3);
+            --text-light: #FFFDF7;
+            --text-dark: #2C2416;
+            --text-muted: #94A3B8;
+            --transition-smooth: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            
+            /* Emotion Theme Base Colors */
+            --theme-color: var(--gold);
+            --theme-glow: var(--gold-glow);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: radial-gradient(circle at center, var(--bg-temple) 0%, var(--bg-dark) 100%);
+            color: var(--text-light);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Ambient Lighting / Diya Effect */
+        body::before {
+            content: '';
+            position: absolute;
+            top: -10%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80vw;
+            height: 60vh;
+            background: radial-gradient(circle, var(--theme-glow) 0%, transparent 70%);
+            z-index: 0;
+            pointer-events: none;
+            transition: var(--transition-smooth);
+        }
+
+        /* --- TYPOGRAPHY --- */
+        h1, h2, h3, .font-serif {
+            font-family: 'Cinzel', serif;
+            letter-spacing: 1px;
+        }
+
+        /* --- NAVIGATION HEADER --- */
+        header {
+            position: relative;
+            z-index: 10;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+            background: rgba(8, 12, 20, 0.8);
+            backdrop-filter: blur(8px);
+            padding: 1.25rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-container {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--gold);
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
+            text-decoration: none;
+        }
+
+        .tagline {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-top: 0.2rem;
+        }
+
+        nav a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-family: 'Cinzel', serif;
+            font-size: 0.9rem;
+            margin-left: 2rem;
+            transition: var(--transition-smooth);
+            position: relative;
+        }
+
+        nav a:hover, nav a.active {
+            color: var(--gold);
+        }
+
+        /* --- DAILY WISDOM BANNER --- */
+        .wisdom-banner {
+            position: relative;
+            z-index: 5;
+            background: rgba(212, 175, 55, 0.05);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+            padding: 0.6rem 1rem;
+            text-align: center;
+            font-size: 0.85rem;
+            font-style: italic;
+            color: var(--gold);
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .wisdom-ticker {
+            display: inline-block;
+            animation: ticker 25s linear infinite;
+        }
+
+        @keyframes ticker {
+            0% { transform: translate3d(100%, 0, 0); }
+            100% { transform: translate3d(-100%, 0, 0); }
+        }
+
+        /* --- MAIN APP CONTAINER --- */
+        main {
+            flex: 1;
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .view-section {
+            display: none;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .view-section.active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- VIEW 1: EMOTION DASHBOARD --- */
+        .dashboard-hero {
+            text-align: center;
+            margin-bottom: 3.5rem;
+        }
+
+        .dashboard-hero h1 {
+            font-size: 2.75rem;
+            color: var(--text-light);
+            margin-bottom: 0.75rem;
+            font-weight: 400;
+        }
+
+        .dashboard-hero p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+
+        .emotion-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1xl));
+            gap: 2rem;
+            justify-content: center;
+        }
+
+        .emotion-card {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(212, 175, 55, 0.15);
+            border-radius: 8px;
+            padding: 2.5rem 2rem;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: var(--transition-smooth);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Custom decorative corner accents for cards */
+        .emotion-card::before, .emotion-card::after {
+            content: '♦';
+            position: absolute;
+            color: rgba(212, 175, 55, 0.3);
+            font-size: 0.6rem;
+            transition: var(--transition-smooth);
+        }
+        .emotion-card::before { top: 10px; left: 10px; }
+        .emotion-card::after { bottom: 10px; right: 10px; }
+
+        .emotion-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            border-color: var(--card-theme-color);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4), 0 0 20px var(--card-theme-glow);
+        }
+
+        .emotion-card:hover::before, .emotion-card:hover::after {
+            color: var(--card-theme-color);
+        }
+
+        .card-icon {
+            width: 50px;
+            height: 50px;
+            margin-bottom: 1.5rem;
+            fill: var(--text-muted);
+            transition: var(--transition-smooth);
+        }
+
+        .emotion-card:hover .card-icon {
+            fill: var(--card-theme-color);
+            transform: rotate(5deg);
+        }
+
+        .card-title {
+            font-size: 1.4rem;
+            margin-bottom: 0.75rem;
+            color: var(--text-light);
+        }
+
+        .card-desc {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        /* --- VIEW 2: RITUAL SANCTUM --- */
+        .sanctum-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 55vh;
+            perspective: 1000px;
+        }
+
+        .ritual-title {
+            font-size: 1.5rem;
+            color: var(--text-muted);
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        /* 3D Visual Construction of the Jar */
+        .jar-wrapper {
+            position: relative;
+            width: 200px;
+            height: 260px;
+            transform-style: preserve-3d;
+            cursor: pointer;
+        }
+
+        .jar-body {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #452a1e 0%, #2b170f 50%, #150905 100%);
+            border: 3px solid var(--gold);
+            border-radius: 40px 40px 60px 60px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.6), inset 0 0 30px rgba(0,0,0,0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Lotus motif engraving on jar */
+        .jar-body::after {
+            content: '';
+            width: 80px;
+            height: 80px;
+            opacity: 0.25;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23D4AF37' d='M12,2s-4,6-4,10,4,6,4,6,4-2,4-6-4-10-4-10Z'/%3E%3C/svg%3E");
+            background-size: contain;
+            background-repeat: no-repeat;
+        }
+
+        .jar-lid {
+            position: absolute;
+            top: -18px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 22px;
+            background: linear-gradient(90deg, #aa841c 0%, #d4af37 50%, #aa841c 100%);
+            border: 2px solid #574107;
+            border-radius: 10px 10px 4px 4px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+        }
+
+        /* Rattle animation applied to jar via class */
+        .jar-rattle {
+            animation: jarShake 0.6s ease-in-out infinite alternate;
+        }
+
+        @keyframes jarShake {
+            0% { transform: rotate(-3deg) translateZ(0); }
+            100% { transform: rotate(3deg) translateZ(10px); }
+        }
+
+        /* Dynamic emergent paper slip */
+        .emerging-slip {
+            position: absolute;
+            bottom: 60%;
+            left: 50%;
+            transform: translateX(-50%) translateY(0) scale(0.3);
+            width: 90px;
+            height: 140px;
+            background: var(--theme-color);
+            border-radius: 4px;
+            opacity: 0;
+            box-shadow: 0 -5px 20px rgba(0,0,0,0.5);
+            z-index: -1;
+            transition: transform 1.5s cubic-bezier(0.25, 1, 0.5, 1), opacity 1s ease;
+        }
+
+        .emerging-slip.active {
+            opacity: 1;
+            transform: translateX(-50%) translateY(-120px) scale(1.1);
+            z-index: 4;
+        }
+
+        /* --- VIEW 3: REVELATION MANUSCRIPT --- */
+        .scroll-container {
+            max-width: 720px;
+            margin: 0 auto;
+        }
+
+        .manuscript-card {
+            background-color: var(--parchment);
+            background-image: radial-gradient(rgba(0,0,0,0.03) 1px, transparent 0);
+            background-size: 24px 24px;
+            color: var(--text-dark);
+            border-radius: 12px;
+            padding: 3.5rem 3rem;
+            border: 2px solid var(--gold);
+            box-shadow: 0 30px 70px rgba(0,0,0,0.8), inset 0 0 40px rgba(44, 36, 22, 0.1);
+            position: relative;
+            transform: scale(0.95);
+            opacity: 0;
+            transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .manuscript-card.active {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        /* Traditional decorative border framing inside scroll */
+        .manuscript-card::before {
+            content: '';
+            position: absolute;
+            top: 15px; bottom: 15px; left: 15px; right: 15px;
+            border: 1px dashed rgba(44, 36, 22, 0.2);
+            pointer-events: none;
+        }
+
+        .scroll-header {
+            text-align: center;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #78350f;
+            border-bottom: 2px dashed rgba(44, 36, 22, 0.15);
+            padding-bottom: 1rem;
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+        }
+
+        .shloka-sanskrit {
+            font-size: 1.75rem;
+            line-height: 1.7;
+            text-align: center;
+            color: #1e1b4b;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+            white-space: pre-line;
+        }
+
+        .shloka-translit {
+            font-size: 1rem;
+            line-height: 1.6;
+            text-align: center;
+            color: #4b5563;
+            font-style: italic;
+            margin-bottom: 2.5rem;
+            white-space: pre-line;
+        }
+
+        .section-label {
+            font-family: 'Cinzel', serif;
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: #78350f;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+        }
+
+        .scroll-block {
+            margin-bottom: 2rem;
+        }
+
+        .scroll-block p {
+            font-size: 1.05rem;
+            line-height: 1.6;
+            color: var(--text-dark);
+        }
+
+        .action-box {
+            background: rgba(212, 175, 55, 0.12);
+            border-left: 4px solid var(--gold);
+            padding: 1.25rem 1.5rem;
+            border-radius: 0 4px 4px 0;
+            margin-top: 2rem;
+        }
+
+        .action-box p {
+            font-size: 1rem;
+            line-height: 1.5;
+            font-weight: 500;
+        }
+
+        /* Shared / Interface Interaction Elements */
+        .scroll-actions-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(44, 36, 22, 0.1);
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            background: transparent;
+            border: 1px solid rgba(44, 36, 22, 0.3);
+            color: var(--text-dark);
+            padding: 0.6rem 1.2rem;
+            font-family: 'Cinzel', serif;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .btn:hover {
+            background: var(--text-dark);
+            color: var(--parchment);
+            border-color: var(--text-dark);
+        }
+
+        .btn-primary {
+            background: #78350f;
+            color: var(--parchment);
+            border-color: #78350f;
+        }
+
+        .btn-primary:hover {
+            background: #9a3412;
+            border-color: #9a3412;
+        }
+
+        /* Feedback Architecture Layout */
+        .feedback-module {
+            text-align: center;
+            background: rgba(0,0,0,0.03);
+            padding: 1.5rem;
+            border-radius: 6px;
+            margin-top: 2.5rem;
+        }
+
+        .feedback-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+
+        .feedback-options {
+            display: flex;
+            justify-content: center;
+            gap: 0.75rem;
+        }
+
+        .feedback-chip {
+            background: rgba(44, 36, 22, 0.06);
+            border: 1px solid rgba(44, 36, 22, 0.1);
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .feedback-chip:hover, .feedback-chip.selected {
+            background: #78350f;
+            color: white;
+            border-color: #78350f;
+        }
+
+        /* --- ABOUT PAGE CONTENT VIEW --- */
+        .about-layout {
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.8;
+            font-size: 1.1rem;
+            color: rgba(255,255,255,0.9);
+        }
+
+        .about-layout h2 {
+            color: var(--gold);
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
+        }
+
+        .about-layout p {
+            margin-bottom: 1.5rem;
+        }
+
+        /* --- STATIC FOOTER SYSTEM --- */
+        footer {
+            background: #05080e;
+            border-top: 1px solid rgba(212, 175, 55, 0.1);
+            padding: 2.5rem 2rem;
+            text-align: center;
+            font-size: 0.85rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        .disclaimer-text {
+            color: var(--text-muted);
+            max-width: 800px;
+            margin: 0 auto 1.5rem auto;
+            line-height: 1.5;
+        }
+
+        .copyright {
+            color: var(--gold);
+            font-family: 'Cinzel', serif;
+            letter-spacing: 1px;
+        }
+
+        /* --- ADAPTIVE LAYOUT MEDIA RESPONSIVENESS --- */
+        @media (max-width: 768px) {
+            header { flex-direction: column; gap: 1rem; text-align: center; }
+            nav a { margin: 0 0.75rem; font-size: 0.85rem; }
+            main { padding: 1.5rem 1rem; }
+            .dashboard-hero h1 { font-size: 2rem; }
+            .manuscript-card { padding: 2rem 1.5rem; }
+            .shloka-sanskrit { font-size: 1.4rem; }
+            .scroll-actions-row { flex-direction: column; gap: 1.5rem; }
+            .btn-group { width: 100%; justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER / MARGIN NAVIGATION CONTAINER -->
+    <header>
+        <div class="logo-container">
+            <a href="#" class="logo" onclick="switchView('view-dashboard')">E-VANI</a>
+            <span class="tagline">Wisdom for Every Emotion</span>
+        </div>
+        <nav>
+            <a href="#" id="nav-home" class="active" onclick="switchView('view-dashboard')">Home</a>
+            <a href="#" id="nav-about" onclick="switchView('view-about')">About</a>
+        </nav>
+    </header>
+
+    <!-- RUNNING DAILY WISDOM TICKER BANNER -->
+    <div class="wisdom-banner">
+        <div class="wisdom-ticker" id="wisdom-ticker-content">
+            Loading cosmic guidance...
+        </div>
+    </div>
+
+    <!-- PRIMARY INTERACTION WORKFLOW SPACE -->
+    <main>
+        
+        <!-- MODULE 1: EMOTION GRID SELECTION MAP -->
+        <section id="view-dashboard" class="view-section active">
+            <div class="dashboard-hero">
+                <h1>What does your heart seek today?</h1>
+                <p>Choose the feeling closest to your present state.</p>
+            </div>
+            <div class="emotion-grid" id="emotion-cards-container">
+                <!-- Cards inject dynamically via JavaScript Engine below -->
+            </div>
+        </section>
+
+        <!-- MODULE 2: RITUAL 3D VESSEL AREA -->
+        <section id="view-sanctum" class="view-section">
+            <div class="sanctum-container">
+                <div class="ritual-title" id="ritual-status-prompt">Concentrate on your chosen state as the vessel initializes...</div>
+                
+                <div class="jar-wrapper" id="interactive-jar">
+                    <div class="jar-lid"></div>
+                    <div class="jar-body"></div>
+                    <div class="emerging-slip" id="ritual-paper-slip"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MODULE 3: REVELATION PARCHMENT SCROLL OVERLAY -->
+        <section id="view-revelation" class="view-section">
+            <div class="scroll-container">
+                <article class="manuscript-card" id="target-manuscript-card">
+                    <div class="scroll-header" id="slip-meta-reference">
+                        Bhagavad Gita
+                    </div>
+                    
+                    <div class="shloka-sanskrit" id="slip-sanskrit">
+                        सञ्जय उवाच।
+                    </div>
+                    
+                    <div class="shloka-translit" id="slip-translit">
+                        sañjaya uvāca
+                    </div>
+                    
+                    <div class="scroll-block">
+                        <div class="section-label">Core Meaning</div>
+                        <p id="slip-meaning">Meaning details rendering...</p>
+                    </div>
+                    
+                    <div class="action-box">
+                        <div class="section-label">Practical Action Step</div>
+                        <p id="slip-action">Action steps rendering...</p>
+                    </div>
+
+                    <div class="scroll-block" style="margin-top: 2rem;">
+                        <div class="section-label">Internal Reflection Prompt</div>
+                        <p id="slip-reflection" style="font-style: italic;">Reflection query rendering...</p>
+                    </div>
+
+                    <!-- Feedback & Interaction Interface Layer -->
+                    <div class="feedback-module">
+                        <div class="feedback-title">Did this guidance resonate with you?</div>
+                        <div class="feedback-options" id="feedback-chips-box">
+                            <span class="feedback-chip" onclick="submitFeedback('Yes')">Yes</span>
+                            <span class="feedback-chip" onclick="submitFeedback('Somewhat')">Somewhat</span>
+                            <span class="feedback-chip" onclick="submitFeedback('Not really')">Not really</span>
+                        </div>
+                    </div>
+
+                    <div class="scroll-actions-row">
+                        <button class="btn" onclick="switchView('view-dashboard')">← Return Home</button>
+                        <div class="btn-group">
+                            <button class="btn" onclick="executeTextCopy()">Copy Verses</button>
+                            <button class="btn btn-primary" onclick="triggerWhatsAppShare()">Share to WhatsApp</button>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- MODULE 4: STATIC PROFILE AND PURPOSE BLOCK -->
+        <section id="view-about" class="view-section">
+            <div class="about-layout">
+                <h2>About E-Vani</h2>
+                <p>E-Vani is a carefully designed, interactive digital platform inspired by the profound psychological insights within the ancient Indian text, the Bhagavad Gita.</p>
+                <p>In modern life, individuals often face sudden changes in emotional states—ranging from acute anxiety and severe frustration to paralyzing self-doubt and deep burnout. E-Vani acts as a spiritual first-aid system. It guides users away from high-stimulus digital distractions and toward safe, contemplative visual spaces where they can pause, reflect, and receive timeless, practical wisdom tailored to their immediate emotional environment.</p>
+                <p>By blending verified color therapy principles, clean user interaction paths, and rigorous scriptural context, E-Vani transforms traditional wisdom into actionable steps to build psychological resilience and mental wellness in the modern world.</p>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- UNIFYING APP SYSTEM FOOTER AND DISCLAIMER MARGINS -->
+    <footer>
+        <div class="disclaimer-text">
+            Inspired by the timeless dialogue of the Bhagavad Gita. This platform is intended strictly for personal reflection and spiritual guidance; it does not constitute, nor is it a substitute for, professional clinical mental health care or psychiatric treatment.
+        </div>
+        <div class="copyright">
+            &copy; 2026 E-Vani Ecosystem. Crafted for Higher Reflection.
+        </div>
+    </footer>
+
+    <!-- --- CORE PLATFORM RUNTIME ENGINE (JAVASCRIPT) --- -->
+    <script>
+        /* --- APPLICATION STATE SCHEMAS & CONTENT ENGINE --- */
+        const GITA_JAR_DATABASE = {
+            anxiety: {
+                color: "#1E40AF",
+                glow: "rgba(30, 64, 175, 0.4)",
+                title: "Anxiety / Fear",
+                desc: "Navigate uncertainty and find stability when future concerns overwhelm the mind.",
+                shlokas: [
+                    {
+                        reference: "Bhagavad Gita 2.14",
+                        sanskrit: "मात्रास्पर्शास्तु कौन्तेय शीतोष्णसुखदुःखदाः।\nआगमापायिनोऽनित्यास्तांस्तितिक्षस्व भारत॥",
+                        transliteration: "mātrā-sparśāstu kaunteya śītoṣṇa-sukha-duḥkhadāḥ\nāgamāpāyino 'nityās tāṁs titiksasva bhārata",
+                        meaning: "The contacts of the senses with their objects give rise to fleeting feelings of heat and cold, pleasure and pain. They are impermanent, appearing and disappearing like the seasons. Learn to observe them calmly without being swept away.",
+                        action: "Perform a 5-minute environmental grounding exercise: physically identify and touch three distinct items near you (e.g., your desk, a cold cup, your apparel) to return your focus to the physical present.",
+                        reflection: "Is this present worry built on undeniable immediate facts, or am I reacting to a projection of a future I cannot control?"
+                    },
+                    {
+                        reference: "Bhagavad Gita 18.66",
+                        sanskrit: "सर्वधर्मान्परित्यज्य मामेकं शरणं व्रज।\nअहं त्वां सर्वपापेभ्यो मोक्षयिष्यामी मा शुचः॥",
+                        transliteration: "sarva-dharmān parityajya mām ekaṁ śaraṇaṁ vraja\nahaṁ tvāṁ sarva-pāpebhyo mokṣayiṣyāmi mā śucaḥ",
+                        meaning: "Let go of all heavy burdens and attachments to outcomes. Take refuge in the present moment and the higher intelligence guiding life. Do not fear; you are protected.",
+                        action: "Close your eyes and complete four complete cycles of box breathing (inhale for 4s, hold for 4s, exhale for 4s, hold for 4s) to physically signal safety to your nervous system.",
+                        reflection: "What heavy burden or expectation can I choose to step away from carrying for the rest of today?"
+                    }
+                ]
+            },
+            anger: {
+                color: "#065F46",
+                glow: "rgba(6, 95, 70, 0.4)",
+                title: "Anger / Friction",
+                desc: "Cool the heat of immediate frustration and re-establish rational analytical perspective.",
+                shlokas: [
+                    {
+                        reference: "Bhagavad Gita 2.63",
+                        sanskrit: "क्रोधाद्भवति सम्मोहः सम्मोहात्स्मृतिविभ्रमः।\nस्मृतिभ्रंशाद्बुद्धिनाशो बुद्धिनाशात्प्रणश्यति॥",
+                        transliteration: "krodhād bhavati sammohaḥ sammohāt smṛti-vibhramaḥ\nsmṛti-bhraṁśād buddhi-nāśo buddhi-nāśāt praṇaśyati",
+                        meaning: "Anger clouds your clear judgment, causing you to lose your sense of perspective. When perspective is lost, your past lessons are forgotten. This destroys your rational mind, leading straight to self-defeating choices.",
+                        action: "Implement a strict 90-second communication delay. Physically step away from your device or the conversation, wash your face with cold water, and let the initial surge of adrenaline drop before speaking.",
+                        reflection: "What unmet expectation or blocked desire triggered this flare of anger, and is that expectation realistic?"
+                    },
+                    {
+                        reference: "Bhagavad Gita 16.21",
+                        sanskrit: "त्रिविधं नरकस्येदं द्वारं नाशनमात्मनः।\nकामः क्रोधस्तथा लोभस्तस्मादेतत्त्रयं त्यजेत्॥",
+                        transliteration: "tri-vidhaṁ narakasyedaṁ dvāraṁ nāśanam ātmanaḥ\nkāmaḥ krodhas tathā lobhas tasmād etat trayaṁ tyajet",
+                        meaning: "There are three internal traps that destroy mental clarity and peace: obsessive desire, unchecked anger, and greed. Because they degrade your well-being, you must consciously move away from them.",
+                        action: "Take a blank piece of paper and write out your raw, unedited frustration. Once finished, safely shred or crumble up the paper to symbolize the release of that emotional intensity.",
+                        reflection: "Is hanging onto this frustration serving my long-term peace of mind, or is it keeping me stuck in a negative loop?"
+                    }
+                ]
+            },
+            grief: {
+                color: "#5B21B6",
+                glow: "rgba(91, 33, 182, 0.4)",
+                title: "Grief / Loss",
+                desc: "Find stable grounding context when navigating deep personal disruption or sorrow.",
+                shlokas: [
+                    {
+                        reference: "Bhagavad Gita 2.11",
+                        sanskrit: "अशोच्यानन्वशोचस्त्वं प्रज्ञावादांश्च भाषसे।\nगतासूनगतासूंश्च नानुशोचन्ति पण्डिताः॥",
+                        transliteration: "aśocyān anvaśocas tvaṁ prajñā-vādāṁś ca bhāṣase\ngatāsūn agatāsūṁś ca nānuśocanti paṇद्itāḥ",
+                        meaning: "While you speak with intellectual words, you are mourning for things that are fundamentally transient. The truly wise recognize the shifting nature of reality and do not despair over temporary forms.",
+                        action: "Give yourself permission to sit comfortably with your sorrow without trying to fix it. Light a candle or sit quietly in a comfortable chair, acknowledging your grief as a reflection of deep love.",
+                        reflection: "How can I honor what was lost through a positive action or a kind gesture to someone else today?"
+                    },
+                    {
+                        reference: "Bhagavad Gita 2.20",
+                        sanskrit: "न जायते म्रियते वा कदाचिन्\nनायं भूत्वा भविता वा न भूयः।\nअजो नित्यः शाश्वतोऽयं पुराणो\nन हन्यते हन्यमाने शरीरे॥",
+                        transliteration: "na jāyate mriyate vā kadācin\nnāyaṁ bhūtvā bhavitā vā na bhūyaḥ\najo nityaḥ śāśvato 'yaṁ purāṇo\nna hanyate hanyamāne śarīre",
+                        meaning: "The underlying essence of life is never born, nor does it ever die. It is continuous, timeless, and enduring. It remains completely untouched even when its temporary physical form changes.",
+                        action: "Step outside into a natural space. Spend a few minutes observing elements that continuously cycle through growth and loss (like trees shedding leaves or clouds moving), noting that life continues onward.",
+                        reflection: "If the core value, love, or connection I am mourning cannot be permanently destroyed, where does its essence live on inside me right now?"
+                    }
+                ]
+            },
+            confusion: {
+                color: "#94A3B8",
+                glow: "rgba(148, 163, 184, 0.4)",
+                title: "Confusion / Uljhan",
+                desc: "Resolve analysis paralysis and cut through conflicting choices with clarity.",
+                shlokas: [
+                    {
+                        reference: "Bhagavad Gita 2.47",
+                        sanskrit: "कर्मण्येवाधिकारस्ते मा फलेषु कदाचन।\nमा कर्मफलहेतुर्भूर्मा ते सङ्गोऽस्त्वकर्मणि॥",
+                        transliteration: "karmaṇy-evādhikāras te mā phaleṣu kadācana\nmā karma-phala-hetur bhūr mā te saṅgo ’stvakarmaṇi",
+                        meaning: "You have an absolute right to your actions and efforts, but your ownership never extends to the final results. Never let your motivation be driven solely by external rewards, and do not fall into the trap of doing nothing.",
+                        action: "Break your current complex situation down into a single step. Focus all your attention on completing just that one small task over the next 20 minutes, letting go of any thoughts about the final outcome.",
+                        reflection: "What is the single most constructive choice I can make right now, regardless of how the overall situation turns out?"
+                    }
+                ]
+            },
+            stress: {
+                color: "#9A3412",
+                glow: "rgba(154, 52, 18, 0.4)",
+                title: "Stress / Overwhelm",
+                desc: "Restore essential mental energy reserves when feeling drained or overextended.",
+                shlokas: [
+                    {
+                        reference: "Bhagavad Gita 6.5",
+                        sanskrit: "उद्धरेदात्मनात्मानं नात्मानमवसादयेत्।\nआत्मैव ह्यात्मनो बन्धुरात्मैव रिपुरात्मनः॥",
+                        transliteration: "uddhared ātmanātmānaṁ nātmānam avasādayet\nātmaiva hy ātmano bandhur ātmaiva ripur ātmanaḥ",
+                        meaning: "Lift yourself up through your own conscious efforts; do not allow your mind to pull you down. Your mind can be your most reliable, supportive ally, or it can operate as your most destructive adversary.",
+                        action: "Interrupt your stress loop with a quick burst of physical movement: stand up, roll your shoulders backward three times, shake out your hands, and drink a glass of water to disrupt muscle tension.",
+                        reflection: "Is my current inner dialogue treating me with the kindness of a supportive ally, or am I judging myself too harshly?"
+                    }
+                ]
+            }
+        };
+
+        const STATIC_TICKER_QUOTES = [
+            "“A man is made by his belief. As he believes, so he is.” — Chapter 17, Verse 3",
+            "“Calmness, gentleness, silence, self-restraint, and purity: these are the disciplines of the mind.” — Chapter 17, Verse 16",
+            "“The mind is restless and difficult to restrain, but it is subdued by practice.” — Chapter 6, Verse 35",
+            "“Yield not to impotence, it does not befit you. Cast off this petty faintheartedness.” — Chapter 2, Verse 3"
+        ];
+
+        let activeVersePayload = null;
+        let activeTargetEmotion = "";
+
+        /* --- INITIALIZATION & DATA RENDERING --- */
+        document.addEventListener("DOMContentLoaded", () => {
+            initializeTicker();
+            renderEmotionCards();
+        });
+
+        function initializeTicker() {
+            const randomQuote = STATIC_TICKER_QUOTES[Math.floor(Math.random() * STATIC_TICKER_QUOTES.length)];
+            document.getElementById("wisdom-ticker-content").innerText = randomQuote;
+        }
+
+        function renderEmotionCards() {
+            const gridContainer = document.getElementById("emotion-cards-container");
+            gridContainer.innerHTML = "";
+            
+            Object.keys(GITA_JAR_DATABASE).forEach(key => {
+                const item = GITA_JAR_DATABASE[key];
+                const card = document.createElement("div");
+                card.className = "emotion-card";
+                card.style.setProperty('--card-theme-color', item.color);
+                card.style.setProperty('--card-theme-glow', item.glow);
+                card.setAttribute("onclick", `initiateRitualSequence('${key}')`);
+                
+                // Pure vector inline configurations to remain completely dependency free
+                card.innerHTML = `
+                    <svg class="card-icon" viewBox="0 0 24 24">
+                        <path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm0-2a8 8 0 1 0 0-16 8 8 0 0 0 0 16zm-1-5h2v2h-2v-2zm0-8h2v6h-2V7z"/>
+                    </svg>
+                    <h3 class="card-title">${item.title}</h3>
+                    <p class="card-desc">${item.desc}</p>
+                `;
+                gridContainer.appendChild(card);
+            });
+        }
+
+        /* --- DISPLAY SYSTEM ROUTER CONTROLLER --- */
+        function switchView(targetViewId) {
+            document.querySelectorAll(".view-section").forEach(view => {
+                view.classList.remove("active");
+            });
+            
+            const activeView = document.getElementById(targetViewId);
+            activeView.style.display = "block";
+            setTimeout(() => activeView.classList.add("active"), 50);
+
+            // Synchronize active header styling variables
+            document.getElementById("nav-home").classList.remove("active");
+            document.getElementById("nav-about").classList.remove("active");
+            if (targetViewId === "view-dashboard") document.getElementById("nav-home").classList.add("active");
+            if (targetViewId === "view-about") document.getElementById("nav-about").classList.add("active");
+        }
+
+        /* --- THE EXTRACTION RITUAL TIMING PIPELINE --- */
+        function initiateRitualSequence(emotionKey) {
+            activeTargetEmotion = emotionKey;
+            const targetMeta = GITA_JAR_DATABASE[emotionKey];
+            
+            // Set dynamic visual theme tokens smoothly across global containers
+            document.documentElement.style.setProperty('--theme-color', targetMeta.color);
+            document.documentElement.style.setProperty('--theme-glow', targetMeta.glow);
+
+            switchView("view-sanctum");
+            
+            const promptText = document.getElementById("ritual-status-prompt");
+            const jarInstance = document.getElementById("interactive-jar");
+            const paperSlip = document.getElementById("ritual-paper-slip");
+            
+            promptText.innerText = "Focus on the present moment. The vessel is aligning...";
+            paperSlip.classList.remove("active");
+            
+            // Step 1: Engage Jar rattle mechanics
+            setTimeout(() => {
+                jarInstance.classList.add("jar-rattle");
+                promptText.innerText = "Extracting your personalized verse...";
+            }, 800);
+
+            // Step 2: Handoff to emergent slip visibility parameters
+            setTimeout(() => {
+                jarInstance.classList.remove("jar-rattle");
+                paperSlip.classList.add("active");
+                promptText.innerText = "Wisdom extracted. Preparing text fields...";
+            }, 2600);
+
+            // Step 3: Map selection database references out to final parchment components
+            setTimeout(() => {
+                const variants = targetMeta.shlokas;
+                activeVersePayload = variants[Math.floor(Math.random() * variants.length)];
+                
+                document.getElementById("slip-meta-reference").innerText = activeVersePayload.reference;
+                document.getElementById("slip-sanskrit").innerText = activeVersePayload.sanskrit;
+                document.getElementById("slip-translit").innerText = activeVersePayload.transliteration;
+                document.getElementById("slip-meaning").innerText = activeVersePayload.meaning;
+                document.getElementById("slip-action").innerText = activeVersePayload.action;
+                document.getElementById("slip-reflection").innerText = activeVersePayload.reflection;
+                
+                // Clear state memory defaults inside feedback chips
+                document.querySelectorAll(".feedback-chip").forEach(chip => chip.classList.remove("selected"));
+
+                switchView("view-revelation");
+                setTimeout(() => {
+                    document.getElementById("target-manuscript-card").classList.add("active");
+                }, 50);
+            }, 4200);
+        }
+
+        /* --- SHARE UTILITIES & FEEDBACK ACCESSIBILITY INTERFACES --- */
+        function submitFeedback(sentimentRatingValue) {
+            document.querySelectorAll(".feedback-chip").forEach(chip => {
+                chip.classList.remove("selected");
+                if(chip.innerText === sentimentRatingValue) chip.classList.add("selected");
+            });
+
+            // Store user tracking data cleanly inside standard local engines
+            const storageKey = `evani_feedback_${activeTargetEmotion}`;
+            localStorage.setItem(storageKey, JSON.stringify({
+                timestamp: new Date().toISOString(),
+                rating: sentimentRatingValue,
+                referenceMatched: activeVersePayload.reference
+            }));
+        }
+
+        function executeTextCopy() {
+            if (!activeVersePayload) return;
+            const compiledCopyString = `*E-Vani Digital Verse Selection*\n\nReference:\n${activeVersePayload.reference}\n\nVerse:\n${activeVersePayload.sanskrit}\n\nMeaning:\n${activeVersePayload.meaning}\n\nPractical Next Step:\n${activeVersePayload.action}`;
+            
+            navigator.clipboard.writeText(compiledCopyString).then(() => {
+                alert("Text content packed into clipboard matrix successfully.");
+            }).catch(err => {
+                console.error("Clipboard failure encountered: ", err);
+            });
+        }
+
+        function triggerWhatsAppShare() {
+            if (!activeVersePayload) return;
+            const targetMessagingString = `*E-Vani Digital Spiritual First-Aid*\n\n_"${activeVersePayload.meaning}"_\n\nExplore your own balance loop context over at E-Vani.`;
+            const encodedValue = encodeURIComponent(targetMessagingString);
+            window.open(`https://api.whatsapp.com/send?text=${encodedValue}`, '_blank');
+        }
+    </script>
+</body>
+</html>
