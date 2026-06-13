@@ -1,10 +1,10 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>E-Vani – The Digital Gita Jar</title>
-    <!-- Premium Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
@@ -182,7 +182,7 @@
 
         .emotion-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1xl));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 2rem;
             justify-content: center;
         }
@@ -201,6 +201,11 @@
             align-items: center;
             text-align: center;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .emotion-card:focus-visible {
+            outline: 2px solid var(--card-theme-color);
+            outline-offset: 4px;
         }
 
         /* Custom decorative corner accents for cards */
@@ -507,6 +512,7 @@
             display: flex;
             justify-content: center;
             gap: 0.75rem;
+            flex-wrap: wrap;
         }
 
         .feedback-chip {
@@ -583,40 +589,34 @@
 </head>
 <body>
 
-    <!-- HEADER / MARGIN NAVIGATION CONTAINER -->
     <header>
         <div class="logo-container">
-            <a href="#" class="logo" onclick="switchView('view-dashboard')">E-VANI</a>
+            <a href="#" class="logo" onclick="switchView('view-dashboard', event)">E-VANI</a>
             <span class="tagline">Wisdom for Every Emotion</span>
         </div>
         <nav>
-            <a href="#" id="nav-home" class="active" onclick="switchView('view-dashboard')">Home</a>
-            <a href="#" id="nav-about" onclick="switchView('view-about')">About</a>
+            <a href="#" id="nav-home" class="active" onclick="switchView('view-dashboard', event)">Home</a>
+            <a href="#" id="nav-about" onclick="switchView('view-about', event)">About</a>
         </nav>
     </header>
 
-    <!-- RUNNING DAILY WISDOM TICKER BANNER -->
     <div class="wisdom-banner">
         <div class="wisdom-ticker" id="wisdom-ticker-content">
             Loading cosmic guidance...
         </div>
     </div>
 
-    <!-- PRIMARY INTERACTION WORKFLOW SPACE -->
     <main>
         
-        <!-- MODULE 1: EMOTION GRID SELECTION MAP -->
         <section id="view-dashboard" class="view-section active">
             <div class="dashboard-hero">
                 <h1>What does your heart seek today?</h1>
                 <p>Choose the feeling closest to your present state.</p>
             </div>
             <div class="emotion-grid" id="emotion-cards-container">
-                <!-- Cards inject dynamically via JavaScript Engine below -->
-            </div>
+                </div>
         </section>
 
-        <!-- MODULE 2: RITUAL 3D VESSEL AREA -->
         <section id="view-sanctum" class="view-section">
             <div class="sanctum-container">
                 <div class="ritual-title" id="ritual-status-prompt">Concentrate on your chosen state as the vessel initializes...</div>
@@ -629,7 +629,6 @@
             </div>
         </section>
 
-        <!-- MODULE 3: REVELATION PARCHMENT SCROLL OVERLAY -->
         <section id="view-revelation" class="view-section">
             <div class="scroll-container">
                 <article class="manuscript-card" id="target-manuscript-card">
@@ -660,7 +659,6 @@
                         <p id="slip-reflection" style="font-style: italic;">Reflection query rendering...</p>
                     </div>
 
-                    <!-- Feedback & Interaction Interface Layer -->
                     <div class="feedback-module">
                         <div class="feedback-title">Did this guidance resonate with you?</div>
                         <div class="feedback-options" id="feedback-chips-box">
@@ -671,7 +669,7 @@
                     </div>
 
                     <div class="scroll-actions-row">
-                        <button class="btn" onclick="switchView('view-dashboard')">← Return Home</button>
+                        <button class="btn" onclick="switchView('view-dashboard', event)">← Return Home</button>
                         <div class="btn-group">
                             <button class="btn" onclick="executeTextCopy()">Copy Verses</button>
                             <button class="btn btn-primary" onclick="triggerWhatsAppShare()">Share to WhatsApp</button>
@@ -681,7 +679,6 @@
             </div>
         </section>
 
-        <!-- MODULE 4: STATIC PROFILE AND PURPOSE BLOCK -->
         <section id="view-about" class="view-section">
             <div class="about-layout">
                 <h2>About E-Vani</h2>
@@ -693,7 +690,6 @@
 
     </main>
 
-    <!-- UNIFYING APP SYSTEM FOOTER AND DISCLAIMER MARGINS -->
     <footer>
         <div class="disclaimer-text">
             Inspired by the timeless dialogue of the Bhagavad Gita. This platform is intended strictly for personal reflection and spiritual guidance; it does not constitute, nor is it a substitute for, professional clinical mental health care or psychiatric treatment.
@@ -703,7 +699,6 @@
         </div>
     </footer>
 
-    <!-- --- CORE PLATFORM RUNTIME ENGINE (JAVASCRIPT) --- -->
     <script>
         /* --- APPLICATION STATE SCHEMAS & CONTENT ENGINE --- */
         const GITA_JAR_DATABASE = {
@@ -714,6 +709,14 @@
                 desc: "Navigate uncertainty and find stability when future concerns overwhelm the mind.",
                 shlokas: [
                     {
+                        reference: "Bhagavad Gita 2.13",
+                        sanskrit: "देहिनोऽस्मिन्यथा देहे कौमारं यौवनं जरा।\nतथा देहान्तरप्राप्तिर्धीरस्तत्र न मुह्यति॥",
+                        transliteration: "dehino ’smin yathā dehe kaumāraṁ yauvanaṁ jarā\ntathā dehāntara-prāptir dhīras tatra na muhyati",
+                        meaning: "Just as the embodied soul continuously passes from childhood to youth to old age in this body, similarly it passes into another body at death. A wise person is not bewildered by this change.",
+                        action: "Take a deep breath and acknowledge that change is a natural constant. Focus on your internal stability.",
+                        reflection: "What parts of my current fear are based on passing circumstances rather than permanent reality?"
+                    },
+                    {
                         reference: "Bhagavad Gita 2.14",
                         sanskrit: "मात्रास्पर्शास्तु कौन्तेय शीतोष्णसुखदुःखदाः।\nआगमापायिनोऽनित्यास्तांस्तितिक्षस्व भारत॥",
                         transliteration: "mātrā-sparśāstu kaunteya śītoṣṇa-sukha-duḥkhadāḥ\nāgamāpāyino 'nityās tāṁs titiksasva bhārata",
@@ -722,12 +725,12 @@
                         reflection: "Is this present worry built on undeniable immediate facts, or am I reacting to a projection of a future I cannot control?"
                     },
                     {
-                        reference: "Bhagavad Gita 18.66",
-                        sanskrit: "सर्वधर्मान्परित्यज्य मामेकं शरणं व्रज।\nअहं त्वां सर्वपापेभ्यो मोक्षयिष्यामी मा शुचः॥",
-                        transliteration: "sarva-dharmān parityajya mām ekaṁ śaraṇaṁ vraja\nahaṁ tvāṁ sarva-pāpebhyo mokṣayiṣyāmi mā śucaḥ",
-                        meaning: "Let go of all heavy burdens and attachments to outcomes. Take refuge in the present moment and the higher intelligence guiding life. Do not fear; you are protected.",
-                        action: "Close your eyes and complete four complete cycles of box breathing (inhale for 4s, hold for 4s, exhale for 4s, hold for 4s) to physically signal safety to your nervous system.",
-                        reflection: "What heavy burden or expectation can I choose to step away from carrying for the rest of today?"
+                        reference: "Bhagavad Gita 12.13–14",
+                        sanskrit: "अद्वेष्टा सर्वभूतानां मैत्रः करुण एव च।\nनिर्ममो निरहङ्कारः समदुःखसुखः क्षमी॥\nसन्तुष्टः सततं योगी यतात्मा दृढनिश्चयः।\nमय्यर्पितमनोबुद्धिर्यो मद्भक्तः स मे प्रियः॥",
+                        transliteration: "adveṣṭā sarva-bhūtānāṁ maitraḥ karuṇa eva ca\nnirmamo nirahaṅkāraḥ sama-duḥkha-sukhaḥ kṣamī\nsantuṣṭaḥ satataṁ yogī yatātmā dṛḍha-niścayaḥ\nmayyarpita-mano-buddhir yo mad-bhaktaḥ sa me priyaḥ",
+                        meaning: "One who is free from malice toward all living beings, friendly and compassionate, free from attachment and ego, balanced in pleasure and pain, forgiving, ever content, self-controlled, and possessed of firm conviction, with mind and intellect dedicated to the Divine—such a person is very dear to Me.",
+                        action: "Consciously drop any resentment or expectation you are currently holding onto, and take five slow breaths.",
+                        reflection: "Can I choose to respond to this situation with inner balance and compassion rather than anxiety?"
                     }
                 ]
             },
@@ -744,6 +747,14 @@
                         meaning: "Anger clouds your clear judgment, causing you to lose your sense of perspective. When perspective is lost, your past lessons are forgotten. This destroys your rational mind, leading straight to self-defeating choices.",
                         action: "Implement a strict 90-second communication delay. Physically step away from your device or the conversation, wash your face with cold water, and let the initial surge of adrenaline drop before speaking.",
                         reflection: "What unmet expectation or blocked desire triggered this flare of anger, and is that expectation realistic?"
+                    },
+                    {
+                        reference: "Bhagavad Gita 2.64",
+                        sanskrit: "रागद्वेषवियुक्तैस्तु विषयानिन्द्रियैश्चरन्।\nआत्मवश्यैर्विधेयात्मा प्रसादमधिगच्छति॥",
+                        transliteration: "rāga-dveṣa-viyuktais tu viṣayān indriyaic caran\nātma-vaśyair vidheyātmā prasādam adhigacchati",
+                        meaning: "But a person free from all attachment and aversion, moving among objects with senses under control and obedient to the self, attains complete tranquility.",
+                        action: "Observe your anger objectively without acting on it. Take a moment to witness it pass like a temporary wave.",
+                        reflection: "Am I reacting out of an old pattern of like or dislike, and can I choose tranquility instead?"
                     },
                     {
                         reference: "Bhagavad Gita 16.21",
@@ -763,8 +774,8 @@
                 shlokas: [
                     {
                         reference: "Bhagavad Gita 2.11",
-                        sanskrit: "अशोच्यानन्वशोचस्त्वं प्रज्ञावादांश्च भाषसे।\nगतासूनगतासूंश्च नानुशोचन्ति पण्डिताः॥",
-                        transliteration: "aśocyān anvaśocas tvaṁ prajñā-vādāṁś ca bhāṣase\ngatāsūn agatāsūṁś ca nānuśocanti paṇद्itāḥ",
+                        sanskrit: "अशोच्यानन्वसोचस्त्वं प्रज्ञावादांश्च भाषसे।\nगतासूनगतासूंश्च नानुशोचन्ति पण्डिताः॥",
+                        transliteration: "aśocyān anvaśocas tvaṁ prajñā-vādāṁś ca bhāṣase\ngatāsūn agatāsūṁś ca nānuśocanti paṇḍitāḥ",
                         meaning: "While you speak with intellectual words, you are mourning for things that are fundamentally transient. The truly wise recognize the shifting nature of reality and do not despair over temporary forms.",
                         action: "Give yourself permission to sit comfortably with your sorrow without trying to fix it. Light a candle or sit quietly in a comfortable chair, acknowledging your grief as a reflection of deep love.",
                         reflection: "How can I honor what was lost through a positive action or a kind gesture to someone else today?"
@@ -792,6 +803,14 @@
                         meaning: "You have an absolute right to your actions and efforts, but your ownership never extends to the final results. Never let your motivation be driven solely by external rewards, and do not fall into the trap of doing nothing.",
                         action: "Break your current complex situation down into a single step. Focus all your attention on completing just that one small task over the next 20 minutes, letting go of any thoughts about the final outcome.",
                         reflection: "What is the single most constructive choice I can make right now, regardless of how the overall situation turns out?"
+                    },
+                    {
+                        reference: "Bhagavad Gita 4.38",
+                        sanskrit: "न हि ज्ञानेन सदृशं पवित्रमिह विद्यते।\nतत्स्वयं योगसंसिद्धः कालेनात्मनि विन्दति॥",
+                        transliteration: "na hi jñānena sadṛśaṁ pavitram iha vidyate\ntat svayaṁ yoga-saṁsiddhaḥ kālenātmani vindati",
+                        meaning: "In this world, there is nothing as purifying as sublime knowledge. One who has attained perfection in yoga discovers this truth within themselves in due course of time.",
+                        action: "Pause your decision-making. Spend 10 minutes reading, learning, or listening to an objective fact related to your situation to clear away confusion.",
+                        reflection: "Am I lacking objective clarity or information right now, or am I letting emotional noise obscure my path?"
                     }
                 ]
             },
@@ -801,6 +820,14 @@
                 title: "Stress / Overwhelm",
                 desc: "Restore essential mental energy reserves when feeling drained or overextended.",
                 shlokas: [
+                    {
+                        reference: "Bhagavad Gita 3.42–43",
+                        sanskrit: "इन्द्रियाणि पराण्याहुरिन्द्रियेभ्यः परं मनः।\nमनसस्तु परा बुद्धिर्यो बुद्धेः परतस्तु सः॥\nएवं बुद्धेः परं बुद्ध्वा संस्तभ्यात्मानमात्मना।\nजहि शत्रुं महाबाहो कामरूपं दुरासदम्॥",
+                        transliteration: "indriyāṇi parāṇyāhur indriyebhyaḥ paraṁ manaḥ\nmanasas tu parā buddhir yo buddheḥ paratas tu saḥ\nevaṁ buddheḥ paraṁ buddhvā saṁstabhyehātmānam ātmanā\njahi śatruṁ mahā-bāho kāma-rūpaṁ durāsadam",
+                        meaning: "The senses are superior to the physical body; the mind is superior to the senses; the intellect is superior to the mind; and the soul is even superior to the intellect. Knowing the soul to be supreme, stabilize the mind through higher intelligence and conquer this formidable enemy of uncontrolled desire.",
+                        action: "Consciously move your awareness step-by-step: observe your physical posture, notice your breath, look at your thoughts, and anchor yourself in your quiet internal core.",
+                        reflection: "Am I identifying too much with transient physical or mental workloads instead of my calm, enduring internal self?"
+                    },
                     {
                         reference: "Bhagavad Gita 6.5",
                         sanskrit: "उद्धरेदात्मनात्मानं नात्मानमवसादयेत्।\nआत्मैव ह्यात्मनो बन्धुरात्मैव रिपुरात्मनः॥",
@@ -822,6 +849,7 @@
 
         let activeVersePayload = null;
         let activeTargetEmotion = "";
+        let ritualTimeouts = [];
 
         /* --- INITIALIZATION & DATA RENDERING --- */
         document.addEventListener("DOMContentLoaded", () => {
@@ -842,13 +870,22 @@
                 const item = GITA_JAR_DATABASE[key];
                 const card = document.createElement("div");
                 card.className = "emotion-card";
+                card.setAttribute("tabindex", "0");
+                card.setAttribute("role", "button");
+                card.setAttribute("aria-label", `Select emotion: ${item.title}`);
                 card.style.setProperty('--card-theme-color', item.color);
                 card.style.setProperty('--card-theme-glow', item.glow);
                 card.setAttribute("onclick", `initiateRitualSequence('${key}')`);
                 
-                // Pure vector inline configurations to remain completely dependency free
+                card.addEventListener("keydown", (e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                        e.preventDefault();
+                        initiateRitualSequence(key);
+                    }
+                });
+                
                 card.innerHTML = `
-                    <svg class="card-icon" viewBox="0 0 24 24">
+                    <svg class="card-icon" viewBox="0 0 24 24" aria-hidden="true">
                         <path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm0-2a8 8 0 1 0 0-16 8 8 0 0 0 0 16zm-1-5h2v2h-2v-2zm0-8h2v6h-2V7z"/>
                     </svg>
                     <h3 class="card-title">${item.title}</h3>
@@ -859,28 +896,60 @@
         }
 
         /* --- DISPLAY SYSTEM ROUTER CONTROLLER --- */
-        function switchView(targetViewId) {
+        function switchView(targetViewId, event) {
+            if (event) {
+                event.preventDefault();
+            }
+            
+            if (targetViewId === 'view-dashboard') {
+                resetRitualState();
+            }
+
             document.querySelectorAll(".view-section").forEach(view => {
                 view.classList.remove("active");
+                view.style.display = "none";
             });
             
             const activeView = document.getElementById(targetViewId);
             activeView.style.display = "block";
-            setTimeout(() => activeView.classList.add("active"), 50);
+            // Force browser reflow to trigger CSS transitions cleanly
+            activeView.offsetHeight; 
+            activeView.classList.add("active");
 
-            // Synchronize active header styling variables
             document.getElementById("nav-home").classList.remove("active");
             document.getElementById("nav-about").classList.remove("active");
             if (targetViewId === "view-dashboard") document.getElementById("nav-home").classList.add("active");
             if (targetViewId === "view-about") document.getElementById("nav-about").classList.add("active");
+            
+            return false;
+        }
+
+        /* --- RESET PIPELINE MANAGEMENT --- */
+        function resetRitualState() {
+            ritualTimeouts.forEach(clearTimeout);
+            ritualTimeouts = [];
+
+            const jarInstance = document.getElementById("interactive-jar");
+            const paperSlip = document.getElementById("ritual-paper-slip");
+            const manuscriptCard = document.getElementById("target-manuscript-card");
+
+            if (jarInstance) jarInstance.classList.remove("jar-rattle");
+            if (paperSlip) {
+                paperSlip.classList.remove("active");
+                paperSlip.style.zIndex = "-1";
+            }
+            if (manuscriptCard) manuscriptCard.classList.remove("active");
+
+            document.querySelectorAll(".feedback-chip").forEach(chip => chip.classList.remove("selected"));
         }
 
         /* --- THE EXTRACTION RITUAL TIMING PIPELINE --- */
         function initiateRitualSequence(emotionKey) {
+            resetRitualState();
             activeTargetEmotion = emotionKey;
             const targetMeta = GITA_JAR_DATABASE[emotionKey];
+            if (!targetMeta) return;
             
-            // Set dynamic visual theme tokens smoothly across global containers
             document.documentElement.style.setProperty('--theme-color', targetMeta.color);
             document.documentElement.style.setProperty('--theme-glow', targetMeta.glow);
 
@@ -891,23 +960,22 @@
             const paperSlip = document.getElementById("ritual-paper-slip");
             
             promptText.innerText = "Focus on the present moment. The vessel is aligning...";
-            paperSlip.classList.remove("active");
             
-            // Step 1: Engage Jar rattle mechanics
-            setTimeout(() => {
+            let t1 = setTimeout(() => {
                 jarInstance.classList.add("jar-rattle");
                 promptText.innerText = "Extracting your personalized verse...";
             }, 800);
+            ritualTimeouts.push(t1);
 
-            // Step 2: Handoff to emergent slip visibility parameters
-            setTimeout(() => {
+            let t2 = setTimeout(() => {
                 jarInstance.classList.remove("jar-rattle");
                 paperSlip.classList.add("active");
+                paperSlip.style.zIndex = "4";
                 promptText.innerText = "Wisdom extracted. Preparing text fields...";
             }, 2600);
+            ritualTimeouts.push(t2);
 
-            // Step 3: Map selection database references out to final parchment components
-            setTimeout(() => {
+            let t3 = setTimeout(() => {
                 const variants = targetMeta.shlokas;
                 activeVersePayload = variants[Math.floor(Math.random() * variants.length)];
                 
@@ -918,14 +986,13 @@
                 document.getElementById("slip-action").innerText = activeVersePayload.action;
                 document.getElementById("slip-reflection").innerText = activeVersePayload.reflection;
                 
-                // Clear state memory defaults inside feedback chips
-                document.querySelectorAll(".feedback-chip").forEach(chip => chip.classList.remove("selected"));
-
                 switchView("view-revelation");
-                setTimeout(() => {
+                let t4 = setTimeout(() => {
                     document.getElementById("target-manuscript-card").classList.add("active");
                 }, 50);
+                ritualTimeouts.push(t4);
             }, 4200);
+            ritualTimeouts.push(t3);
         }
 
         /* --- SHARE UTILITIES & FEEDBACK ACCESSIBILITY INTERFACES --- */
@@ -935,32 +1002,65 @@
                 if(chip.innerText === sentimentRatingValue) chip.classList.add("selected");
             });
 
-            // Store user tracking data cleanly inside standard local engines
-            const storageKey = `evani_feedback_${activeTargetEmotion}`;
-            localStorage.setItem(storageKey, JSON.stringify({
-                timestamp: new Date().toISOString(),
-                rating: sentimentRatingValue,
-                referenceMatched: activeVersePayload.reference
-            }));
+            if (!activeVersePayload) return;
+
+            try {
+                const storageKey = `evani_feedback_${activeTargetEmotion}`;
+                localStorage.setItem(storageKey, JSON.stringify({
+                    timestamp: new Date().toISOString(),
+                    rating: sentimentRatingValue,
+                    referenceMatched: activeVersePayload.reference
+                }));
+            } catch (e) {
+                console.warn("localStorage write operation blocked or unavailable:", e);
+            }
         }
 
         function executeTextCopy() {
             if (!activeVersePayload) return;
             const compiledCopyString = `*E-Vani Digital Verse Selection*\n\nReference:\n${activeVersePayload.reference}\n\nVerse:\n${activeVersePayload.sanskrit}\n\nMeaning:\n${activeVersePayload.meaning}\n\nPractical Next Step:\n${activeVersePayload.action}`;
             
-            navigator.clipboard.writeText(compiledCopyString).then(() => {
-                alert("Text content packed into clipboard matrix successfully.");
-            }).catch(err => {
-                console.error("Clipboard failure encountered: ", err);
-            });
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(compiledCopyString).then(() => {
+                    alert("Text content packed into clipboard matrix successfully.");
+                }).catch(() => {
+                    fallbackCopyText(compiledCopyString);
+                });
+            } else {
+                fallbackCopyText(compiledCopyString);
+            }
+        }
+
+        function fallbackCopyText(text) {
+            const textArea = document.createElement("textarea");
+            textArea.value = text;
+            textArea.style.position = "fixed"; 
+            textArea.style.left = "-999999px";
+            textArea.style.top = "-999999px";
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            try {
+                const successful = document.execCommand('copy');
+                if (successful) {
+                    alert("Text content packed into clipboard matrix successfully.");
+                } else {
+                    alert("Unable to copy content automatically. Please copy text manually.");
+                }
+            } catch (err) {
+                alert("Unable to copy content automatically. Please copy text manually.");
+            }
+            document.body.removeChild(textArea);
         }
 
         function triggerWhatsAppShare() {
             if (!activeVersePayload) return;
             const targetMessagingString = `*E-Vani Digital Spiritual First-Aid*\n\n_"${activeVersePayload.meaning}"_\n\nExplore your own balance loop context over at E-Vani.`;
             const encodedValue = encodeURIComponent(targetMessagingString);
-            window.open(`https://api.whatsapp.com/send?text=${encodedValue}`, '_blank');
+            window.open(`https://api.whatsapp.com/send?text=${encodedValue}`, '_blank', 'noopener,noreferrer');
         }
     </script>
 </body>
 </html>
+
+```
