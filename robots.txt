@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://mr-yadav00.github.io/e-vani/sitemap.xml

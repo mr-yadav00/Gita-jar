@@ -1,0 +1,87 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="bgGrad" cx="50%" cy="45%" r="70%">
+      <stop offset="0%" stop-color="#2A1E10"/>
+      <stop offset="100%" stop-color="#0E0A04"/>
+    </radialGradient>
+    <radialGradient id="parchGrad" cx="50%" cy="45%" r="75%">
+      <stop offset="0%" stop-color="#EAD8A8"/>
+      <stop offset="55%" stop-color="#D4B87A"/>
+      <stop offset="100%" stop-color="#B8966A"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bgGrad)"/>
+
+  <!-- Parchment panel -->
+  <rect x="90" y="70" width="1020" height="490" rx="6" fill="url(#parchGrad)"/>
+  <rect x="90" y="70" width="1020" height="490" rx="6" fill="none" stroke="#7D1F2F" stroke-width="8"/>
+  <rect x="98" y="78" width="1004" height="474" rx="3" fill="none" stroke="#D4AF37" stroke-width="3"/>
+
+  <!-- Corner diamonds -->
+  <rect x="83" y="63" width="14" height="14" fill="#D4AF37" transform="rotate(45 90 70)"/>
+  <rect x="1103" y="63" width="14" height="14" fill="#D4AF37" transform="rotate(45 1110 70)"/>
+  <rect x="83" y="553" width="14" height="14" fill="#D4AF37" transform="rotate(45 90 560)"/>
+  <rect x="1103" y="553" width="14" height="14" fill="#D4AF37" transform="rotate(45 1110 560)"/>
+
+  <!-- Peacock feather (left) -->
+  <g transform="translate(150,180)" opacity="0.85">
+    <path d="M40,280 Q38,200 40,120 Q42,60 40,0" stroke="#2A5A2A" stroke-width="3" fill="none"/>
+    <ellipse cx="40" cy="40" rx="22" ry="22" fill="#1A4A7A"/>
+    <ellipse cx="40" cy="40" rx="15" ry="15" fill="#1A6A4A"/>
+    <ellipse cx="40" cy="40" rx="8" ry="8" fill="#1A3A7C"/>
+    <path d="M40,62 Q25,75 10,68 Q18,58 30,62Z" fill="#1A6A4A" opacity="0.8"/>
+    <path d="M40,62 Q55,75 70,68 Q62,58 50,62Z" fill="#2A8A5A" opacity="0.8"/>
+    <path d="M40,90 Q20,108 0,102 Q10,88 25,92Z" fill="#2A7A4A" opacity="0.65"/>
+    <path d="M40,90 Q60,108 80,102 Q70,88 55,92Z" fill="#1A6A3A" opacity="0.65"/>
+  </g>
+
+  <!-- Lotus (bottom left) -->
+  <g transform="translate(170,470)" opacity="0.85">
+    <ellipse cx="0" cy="35" rx="9" ry="14" fill="#F09898"/>
+    <ellipse cx="0" cy="35" rx="9" ry="14" fill="#E87898" transform="rotate(60 0 49)"/>
+    <ellipse cx="0" cy="35" rx="9" ry="14" fill="#F09898" transform="rotate(120 0 49)"/>
+    <ellipse cx="0" cy="35" rx="9" ry="14" fill="#E87898" transform="rotate(180 0 49)"/>
+    <ellipse cx="0" cy="35" rx="9" ry="14" fill="#F09898" transform="rotate(240 0 49)"/>
+    <ellipse cx="0" cy="35" rx="9" ry="14" fill="#E87898" transform="rotate(300 0 49)"/>
+    <circle cx="0" cy="35" r="10" fill="#F8C830"/>
+    <circle cx="0" cy="35" r="6" fill="#E8A820"/>
+  </g>
+
+  <!-- Brass Jar (right side) -->
+  <g transform="translate(990,330)" opacity="0.88">
+    <ellipse cx="0" cy="155" rx="48" ry="16" fill="#8B6510" opacity="0.5"/>
+    <path d="M-40,140Q-44,90 -36,55Q-26,12 0,8Q26,12 36,55Q44,90 40,140Z" fill="#C4902A"/>
+    <path d="M14,18Q34,42 38,90Q42,120 34,144Q30,90 22,55Z" fill="#8B6510" opacity="0.4"/>
+    <rect x="-22" y="-18" width="44" height="22" rx="8" fill="#8B6510"/>
+    <ellipse cx="0" cy="-18" rx="22" ry="9" fill="#C4902A"/>
+    <ellipse cx="0" cy="-18" rx="26" ry="11" fill="none" stroke="#D4AF37" stroke-width="3"/>
+    <rect x="-40" y="78" width="80" height="10" fill="#8B6510" opacity="0.4"/>
+    <circle cx="-22" cy="83" r="4" fill="#D4AF37"/>
+    <circle cx="-4" cy="83" r="4" fill="#D4AF37"/>
+    <circle cx="14" cy="83" r="4" fill="#D4AF37"/>
+  </g>
+
+  <!-- OM symbol -->
+  <g transform="translate(1030,150)" opacity="0.8">
+    <circle cx="0" cy="0" r="42" fill="#8B6510" stroke="#D4AF37" stroke-width="3"/>
+    <text x="0" y="16" text-anchor="middle" font-family="Georgia, serif" font-size="44" font-weight="bold" fill="#D4AF37">ॐ</text>
+  </g>
+
+  <!-- Main Title -->
+  <text x="600" y="270" text-anchor="middle" font-family="Georgia, 'Noto Sans Devanagari', serif" font-size="92" font-weight="bold" fill="#6B1A28">ई-वाणी</text>
+  <text x="600" y="330" text-anchor="middle" font-family="Georgia, serif" font-size="34" letter-spacing="4" fill="#4A2C10">E - V A N I</text>
+
+  <!-- Tagline -->
+  <text x="600" y="385" text-anchor="middle" font-family="Georgia, serif" font-style="italic" font-size="26" fill="#8B6010">A Shloka For Every Emotion</text>
+
+  <!-- Divider -->
+  <line x1="430" y1="415" x2="770" y2="415" stroke="#C4902A" stroke-width="1.5" opacity="0.6"/>
+  <circle cx="600" cy="415" r="6" fill="#D4AF37"/>
+
+  <!-- Sanskrit line -->
+  <text x="600" y="460" text-anchor="middle" font-family="'Noto Sans Devanagari', serif" font-size="22" fill="#5C1520" opacity="0.85">श्रीमद्भगवद्गीता — ५००० वर्ष प्राचीन</text>
+
+  <!-- Credit -->
+  <text x="600" y="525" text-anchor="middle" font-family="Georgia, serif" font-size="18" fill="#7A5030">Built with reverence by SiteLab India</text>
+</svg>
